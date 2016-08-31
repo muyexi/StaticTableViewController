@@ -1,0 +1,16 @@
+PODS:
+  - StaticTableViewController (0.1)
+
+DEPENDENCIES:
+  - StaticTableViewController (from `./`)
+
+EXTERNAL SOURCES:
+  StaticTableViewController:
+    :path: "./"
+
+SPEC CHECKSUMS:
+  StaticTableViewController: 17bfc5b8acd78e0555ad69df800d1488c67db42d
+
+PODFILE CHECKSUM: b87f909462710db4c678c5c56a4e6af55a5e5287
+
+COCOAPODS: 1.0.1
