@@ -27,7 +27,6 @@ class ViewController: StaticTableViewController {
             switch indexPath.row {
             case 0:
                 cells([showAllCell, hideMeCell1, hideMeCell2], hidden: false)
-                break
             default:
                 break
             }
@@ -35,7 +34,6 @@ class ViewController: StaticTableViewController {
             switch indexPath.row {
             case 0:
                 cells([hideMeCell1], hidden: true)
-                break
             default:
                 break
             }
@@ -43,7 +41,6 @@ class ViewController: StaticTableViewController {
             switch indexPath.row {
             case 0:
                 cells([hideMeCell2], hidden: true)
-                break
             default:
                 break
             }

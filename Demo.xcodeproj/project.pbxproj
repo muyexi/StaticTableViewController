@@ -8,6 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		642FDD4E819B3694FD83391B /* Pods_Demo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54ABCD53545EDBB85F3C822B /* Pods_Demo.framework */; };
+		8D27972A1D77DDEA00BBAC45 /* OriginalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797261D77DDEA00BBAC45 /* OriginalRow.swift */; };
+		8D27972B1D77DDEA00BBAC45 /* OriginalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797271D77DDEA00BBAC45 /* OriginalSection.swift */; };
+		8D27972C1D77DDEA00BBAC45 /* OriginalTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797281D77DDEA00BBAC45 /* OriginalTable.swift */; };
+		8D27972D1D77DDEA00BBAC45 /* StaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797291D77DDEA00BBAC45 /* StaticTableViewController.swift */; };
+		8D27972F1D77DE5F00BBAC45 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D27972E1D77DE5F00BBAC45 /* Info.plist */; };
+		8D2797471D77E74C00BBAC45 /* StaticTableViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */; };
+		8D2797481D77E74C00BBAC45 /* StaticTableViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8D27974C1D77E75D00BBAC45 /* OriginalRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797261D77DDEA00BBAC45 /* OriginalRow.swift */; };
+		8D27974D1D77E75D00BBAC45 /* OriginalSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797271D77DDEA00BBAC45 /* OriginalSection.swift */; };
+		8D27974E1D77E75D00BBAC45 /* OriginalTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797281D77DDEA00BBAC45 /* OriginalTable.swift */; };
+		8D27974F1D77E75D00BBAC45 /* StaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D2797291D77DDEA00BBAC45 /* StaticTableViewController.swift */; };
 		8DB921701D76BF0F006961FE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB921681D76BF0F006961FE /* AppDelegate.swift */; };
 		8DB921711D76BF0F006961FE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB921691D76BF0F006961FE /* Assets.xcassets */; };
 		8DB921721D76BF0F006961FE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8DB9216A1D76BF0F006961FE /* LaunchScreen.storyboard */; };
@@ -16,9 +27,39 @@
 		8DB921751D76BF0F006961FE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB9216F1D76BF0F006961FE /* ViewController.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		8D2797451D77E74C00BBAC45 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DB9212E1D76A0C2006961FE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D27973F1D77E74B00BBAC45;
+			remoteInfo = StaticTableViewController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8D2797241D77DC9100BBAC45 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8D2797481D77E74C00BBAC45 /* StaticTableViewController.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		50106CF00BC81E4459C9B134 /* Pods-Demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Demo.release.xcconfig"; path = "Pods/Target Support Files/Pods-Demo/Pods-Demo.release.xcconfig"; sourceTree = "<group>"; };
 		54ABCD53545EDBB85F3C822B /* Pods_Demo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Demo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D2797261D77DDEA00BBAC45 /* OriginalRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalRow.swift; sourceTree = "<group>"; };
+		8D2797271D77DDEA00BBAC45 /* OriginalSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalSection.swift; sourceTree = "<group>"; };
+		8D2797281D77DDEA00BBAC45 /* OriginalTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OriginalTable.swift; sourceTree = "<group>"; };
+		8D2797291D77DDEA00BBAC45 /* StaticTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StaticTableViewController.swift; sourceTree = "<group>"; };
+		8D27972E1D77DE5F00BBAC45 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StaticTableViewController.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB921361D76A0C2006961FE /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB921681D76BF0F006961FE /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8DB921691D76BF0F006961FE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -30,10 +71,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D27973C1D77E74B00BBAC45 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DB921331D76A0C2006961FE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D2797471D77E74C00BBAC45 /* StaticTableViewController.framework in Frameworks */,
 				642FDD4E819B3694FD83391B /* Pods_Demo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -58,9 +107,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		8D2797251D77DDEA00BBAC45 /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				8D27972E1D77DE5F00BBAC45 /* Info.plist */,
+				8D2797261D77DDEA00BBAC45 /* OriginalRow.swift */,
+				8D2797271D77DDEA00BBAC45 /* OriginalSection.swift */,
+				8D2797281D77DDEA00BBAC45 /* OriginalTable.swift */,
+				8D2797291D77DDEA00BBAC45 /* StaticTableViewController.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
 		8DB9212D1D76A0C2006961FE = {
 			isa = PBXGroup;
 			children = (
+				8D2797251D77DDEA00BBAC45 /* Source */,
 				8DB921671D76BF0F006961FE /* Demo */,
 				8DB921371D76A0C2006961FE /* Products */,
 				62231B733B74B2D3B815F589 /* Pods */,
@@ -72,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				8DB921361D76A0C2006961FE /* Demo.app */,
+				8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,7 +154,35 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		8D27973D1D77E74B00BBAC45 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		8D27973F1D77E74B00BBAC45 /* StaticTableViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D27974B1D77E74C00BBAC45 /* Build configuration list for PBXNativeTarget "StaticTableViewController" */;
+			buildPhases = (
+				8D27973B1D77E74B00BBAC45 /* Sources */,
+				8D27973C1D77E74B00BBAC45 /* Frameworks */,
+				8D27973D1D77E74B00BBAC45 /* Headers */,
+				8D27973E1D77E74B00BBAC45 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StaticTableViewController;
+			productName = StaticTableViewController;
+			productReference = 8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8DB921351D76A0C2006961FE /* Demo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DB921481D76A0C2006961FE /* Build configuration list for PBXNativeTarget "Demo" */;
@@ -102,10 +193,12 @@
 				8DB921341D76A0C2006961FE /* Resources */,
 				1502FCBA16AC407D7089A76D /* [CP] Embed Pods Frameworks */,
 				1A2718AB1A0C4B0F67964E77 /* [CP] Copy Pods Resources */,
+				8D2797241D77DC9100BBAC45 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8D2797461D77E74C00BBAC45 /* PBXTargetDependency */,
 			);
 			name = Demo;
 			productName = StaticTableViewController;
@@ -122,6 +215,9 @@
 				LastUpgradeCheck = 0730;
 				ORGANIZATIONNAME = muyexi;
 				TargetAttributes = {
+					8D27973F1D77E74B00BBAC45 = {
+						CreatedOnToolsVersion = 7.3;
+					};
 					8DB921351D76A0C2006961FE = {
 						CreatedOnToolsVersion = 7.3;
 					};
@@ -141,11 +237,19 @@
 			projectRoot = "";
 			targets = (
 				8DB921351D76A0C2006961FE /* Demo */,
+				8D27973F1D77E74B00BBAC45 /* StaticTableViewController */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D27973E1D77E74B00BBAC45 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DB921341D76A0C2006961FE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -153,6 +257,7 @@
 				8DB921741D76BF0F006961FE /* Info.plist in Resources */,
 				8DB921731D76BF0F006961FE /* Main.storyboard in Resources */,
 				8DB921711D76BF0F006961FE /* Assets.xcassets in Resources */,
+				8D27972F1D77DE5F00BBAC45 /* Info.plist in Resources */,
 				8DB921721D76BF0F006961FE /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -208,16 +313,39 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D27973B1D77E74B00BBAC45 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D27974C1D77E75D00BBAC45 /* OriginalRow.swift in Sources */,
+				8D27974D1D77E75D00BBAC45 /* OriginalSection.swift in Sources */,
+				8D27974E1D77E75D00BBAC45 /* OriginalTable.swift in Sources */,
+				8D27974F1D77E75D00BBAC45 /* StaticTableViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DB921321D76A0C2006961FE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				8DB921751D76BF0F006961FE /* ViewController.swift in Sources */,
+				8D27972D1D77DDEA00BBAC45 /* StaticTableViewController.swift in Sources */,
 				8DB921701D76BF0F006961FE /* AppDelegate.swift in Sources */,
+				8D27972C1D77DDEA00BBAC45 /* OriginalTable.swift in Sources */,
+				8D27972B1D77DDEA00BBAC45 /* OriginalSection.swift in Sources */,
+				8D27972A1D77DDEA00BBAC45 /* OriginalRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8D2797461D77E74C00BBAC45 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D27973F1D77E74B00BBAC45 /* StaticTableViewController */;
+			targetProxy = 8D2797451D77E74C00BBAC45 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8DB9216A1D76BF0F006961FE /* LaunchScreen.storyboard */ = {
@@ -239,6 +367,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8D2797491D77E74C00BBAC45 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StaticTableViewController/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.StaticTableViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		8D27974A1D77E74C00BBAC45 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = StaticTableViewController/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.StaticTableViewController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		8DB921461D76A0C2006961FE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -327,6 +495,7 @@
 			baseConfigurationReference = A2250C3629BCCC9E6ECEA575 /* Pods-Demo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
@@ -339,6 +508,7 @@
 			baseConfigurationReference = 50106CF00BC81E4459C9B134 /* Pods-Demo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Demo/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
@@ -349,6 +519,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D27974B1D77E74C00BBAC45 /* Build configuration list for PBXNativeTarget "StaticTableViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D2797491D77E74C00BBAC45 /* Debug */,
+				8D27974A1D77E74C00BBAC45 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8DB921311D76A0C2006961FE /* Build configuration list for PBXProject "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
