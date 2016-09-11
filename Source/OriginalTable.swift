@@ -91,12 +91,12 @@ class OriginalTable {
         insertIndexPaths = allRows.filter {
             $0.batchOperation == BatchOperation.Insert
         }.map {
-            indexPathForDeletingOriginalRow($0)
+            indexPathForInsertingOriginalRow($0)
         }
         deleteIndexPaths = allRows.filter {
             $0.batchOperation == BatchOperation.Delete
         }.map {
-            indexPathForInsertingOriginalRow($0)
+            indexPathForDeletingOriginalRow($0)
         }
         updateIndexPaths = allRows.filter {
             $0.batchOperation == BatchOperation.Update
