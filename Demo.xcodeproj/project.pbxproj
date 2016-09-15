@@ -217,9 +217,11 @@
 				TargetAttributes = {
 					8D27973F1D77E74B00BBAC45 = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 					8DB921351D76A0C2006961FE = {
 						CreatedOnToolsVersion = 7.3;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -381,6 +383,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.StaticTableViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -401,6 +404,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.StaticTableViewController;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -500,6 +504,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
 				PRODUCT_NAME = Demo;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -513,6 +518,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
 				PRODUCT_NAME = Demo;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

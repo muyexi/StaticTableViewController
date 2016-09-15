@@ -6,26 +6,26 @@ class OriginalTable {
     
     var tableView: UITableView
     
-    var insertIndexPaths: [NSIndexPath]
+    var insertIndexPaths: [IndexPath]
     
-    var deleteIndexPaths: [NSIndexPath]
+    var deleteIndexPaths: [IndexPath]
     
-    var updateIndexPaths: [NSIndexPath]
+    var updateIndexPaths: [IndexPath]
 
     init(tableView: UITableView) {
-        sections = Array(count: tableView.numberOfSections, repeatedValue: OriginalSection())
+        sections = Array(repeating: OriginalSection(), count: tableView.numberOfSections)
         
         var totalNumberOfRows: Int = 0
         for i in 0..<tableView.numberOfSections {
             let section = OriginalSection()
-            let numberOfRows = tableView.numberOfRowsInSection(i)
+            let numberOfRows = tableView.numberOfRows(inSection: i)
             
             totalNumberOfRows += numberOfRows
-            section.rows = Array(count: numberOfRows, repeatedValue: OriginalRow())
+            section.rows = Array(repeating: OriginalRow(), count: numberOfRows)
             
             for ii in 0..<numberOfRows {
-                let indexPath = NSIndexPath(forRow: ii, inSection: i)
-                let cell = tableView.dataSource!.tableView(tableView, cellForRowAtIndexPath: indexPath)
+                let indexPath = IndexPath(row: ii, section: i)
+                let cell = tableView.dataSource!.tableView(tableView, cellForRowAt: indexPath)
                 
                 let row = OriginalRow(cell: cell, originalIndexPath: indexPath)
                 section.rows![ii] = row
@@ -34,51 +34,51 @@ class OriginalTable {
             sections[i] = section
         }
         
-        insertIndexPaths = Array(count: totalNumberOfRows, repeatedValue: NSIndexPath())
-        deleteIndexPaths = Array(count: totalNumberOfRows, repeatedValue: NSIndexPath())
-        updateIndexPaths = Array(count: totalNumberOfRows, repeatedValue: NSIndexPath())
+        insertIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
+        deleteIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
+        updateIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
         
         self.tableView = tableView
     }
     
-    func originalRowWithIndexPath(indexPath: NSIndexPath) -> OriginalRow {
+    func originalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
         let section = sections[indexPath.section]
         let row = section.rows![indexPath.row]
         
         return row
     }
     
-    func vissibleOriginalRowWithIndexPath(indexPath: NSIndexPath) -> OriginalRow {
+    func vissibleOriginalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
         let section = sections[indexPath.section]
         let visibleRows = section.rows!.filter { !$0.hidden }
         
         return visibleRows[indexPath.row]
     }
 
-    func originalRowWithTableViewCell(cell: UITableViewCell) -> OriginalRow {
+    func originalRowWithTableViewCell(_ cell: UITableViewCell) -> OriginalRow {
         let allRows = sections.flatMap { $0.rows! }
         
         return allRows.filter { $0.cell === cell }.first!
     }
     
-    func indexPathForInsertingOriginalRow(originalRow: OriginalRow) -> NSIndexPath {
+    func indexPathForInsertingOriginalRow(_ originalRow: OriginalRow) -> IndexPath {
         let indexSection = originalRow.originalIndexPath!.section
         var indexRow = originalRow.originalIndexPath!.row
         
         let section = sections[indexSection]
         indexRow = section.rows![0..<indexRow].filter { !$0.hidden }.count
         
-        return NSIndexPath(forRow: indexRow, inSection: indexSection)
+        return IndexPath(row: indexRow, section: indexSection)
     }
     
-    func indexPathForDeletingOriginalRow(originalRow: OriginalRow) -> NSIndexPath {
+    func indexPathForDeletingOriginalRow(_ originalRow: OriginalRow) -> IndexPath {
         let indexSection = originalRow.originalIndexPath!.section
         var indexRow = originalRow.originalIndexPath!.row
         
         let section = sections[indexSection]
         indexRow = section.rows![0..<indexRow].filter { !$0.hiddenReal }.count
         
-        return NSIndexPath(forRow: indexRow, inSection: indexSection)
+        return IndexPath(row: indexRow, section: indexSection)
     }
     
     func prepareUpdates() {
@@ -89,24 +89,24 @@ class OriginalTable {
         let allRows = sections.flatMap { $0.rows! }
         
         insertIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.Insert
+            $0.batchOperation == BatchOperation.insert
         }.map {
             indexPathForInsertingOriginalRow($0)
         }
         deleteIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.Delete
+            $0.batchOperation == BatchOperation.delete
         }.map {
             indexPathForDeletingOriginalRow($0)
         }
         updateIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.Update
+            $0.batchOperation == BatchOperation.update
         }.map {
             indexPathForInsertingOriginalRow($0)
         }
         
         allRows.forEach { row in
             row.hiddenReal = row.hiddenPlanned
-            row.batchOperation = BatchOperation.None
+            row.batchOperation = BatchOperation.none
         }
     }
     

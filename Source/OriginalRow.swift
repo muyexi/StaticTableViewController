@@ -1,12 +1,12 @@
 import UIKit
 
 enum BatchOperation {
-    case None, Insert, Delete, Update
+    case none, insert, delete, update
 }
 
 class OriginalRow {
     
-    convenience init(cell: UITableViewCell, originalIndexPath: NSIndexPath){
+    convenience init(cell: UITableViewCell, originalIndexPath: IndexPath){
         self.init()
         
         self.cell = cell
@@ -19,9 +19,9 @@ class OriginalRow {
         }
         set {
             if !hiddenReal && newValue {
-                batchOperation = .Delete
+                batchOperation = .delete
             } else if hiddenReal && !newValue {
-                batchOperation = .Insert
+                batchOperation = .insert
             }
             
             hiddenPlanned = newValue
@@ -32,17 +32,17 @@ class OriginalRow {
 
     var hiddenPlanned: Bool = false
     
-    var batchOperation: BatchOperation = .None
+    var batchOperation: BatchOperation = .none
     
     var cell: UITableViewCell?
     
-    var originalIndexPath: NSIndexPath?
+    var originalIndexPath: IndexPath?
     
-    var height: CGFloat = CGFloat.max
+    var height: CGFloat = CGFloat.greatestFiniteMagnitude
     
     func update() {
-        if !hidden && batchOperation == .None {
-            batchOperation = .Update
+        if !hidden && batchOperation == .none {
+            batchOperation = .update
         }
     }
     

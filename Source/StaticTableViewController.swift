@@ -1,13 +1,13 @@
 import UIKit
 
-public class StaticTableViewController: UITableViewController {
+open class StaticTableViewController: UITableViewController {
     
-    public var hideSectionsWithHiddenRows = false
-    public var animateSectionHeaders = false
+    open var hideSectionsWithHiddenRows = false
+    open var animateSectionHeaders = false
     
-    public var insertTableViewRowAnimation: UITableViewRowAnimation = .Fade
-    public var deleteTableViewRowAnimation: UITableViewRowAnimation = .Fade
-    public var reloadTableViewRowAnimation: UITableViewRowAnimation = .Fade
+    open var insertTableViewRowAnimation: UITableViewRowAnimation = .fade
+    open var deleteTableViewRowAnimation: UITableViewRowAnimation = .fade
+    open var reloadTableViewRowAnimation: UITableViewRowAnimation = .fade
     
     var originalTable: OriginalTable?
     
@@ -20,67 +20,67 @@ public class StaticTableViewController: UITableViewController {
         super.init(coder: aDecoder)
     }
     
-    override public func viewDidLoad() {
+    override open func viewDidLoad() {
         super.viewDidLoad()
         
         originalTable = OriginalTable(tableView: tableView)
     }
     
-    public func updateCell(cell: UITableViewCell) {
+    open func updateCell(_ cell: UITableViewCell) {
         let row = originalTable!.originalRowWithTableViewCell(cell)
         row.update()
     }
     
-    public func updateCells(cells: [UITableViewCell]) {
+    open func updateCells(_ cells: [UITableViewCell]) {
         cells.forEach { cell in
             updateCell(cell)
         }
     }
     
-    public func cell(cell: UITableViewCell, hidden: Bool) {
+    open func cell(_ cell: UITableViewCell, hidden: Bool) {
         let row = originalTable!.originalRowWithTableViewCell(cell)
         row.hidden = hidden
     }
     
-    public func cells(cells: [UITableViewCell], hidden: Bool) {
+    open func cells(_ cells: [UITableViewCell], hidden: Bool) {
         cells.forEach { c in
             cell(c, hidden: hidden)
         }
     }
     
-    public func cell(cell: UITableViewCell, height: CGFloat) {
+    open func cell(_ cell: UITableViewCell, height: CGFloat) {
         let row = originalTable!.originalRowWithTableViewCell(cell)
         row.height = height
     }
     
-    public func cells(cells: [UITableViewCell], height: CGFloat) {
+    open func cells(_ cells: [UITableViewCell], height: CGFloat) {
         cells.forEach { c in
             cell(c, height: height)
         }
     }
     
-    public func cellIsHidden(cell: UITableViewCell) -> Bool {
+    open func cellIsHidden(_ cell: UITableViewCell) -> Bool {
         return originalTable!.originalRowWithTableViewCell(cell).hidden
     }
     
-    public func reloadDataAnimated(animated: Bool) {
+    open func reloadDataAnimated(_ animated: Bool) {
         originalTable!.prepareUpdates()
         
         if animated {
             if animateSectionHeaders {
                 originalTable?.deleteIndexPaths.forEach({ indexPath in
-                    let cell = tableView.cellForRowAtIndexPath(indexPath)
+                    let cell = tableView.cellForRow(at: indexPath)
                     cell?.layer.zPosition = -2
                     
-                    tableView.headerViewForSection(indexPath.section)?.layer.zPosition = -1
+                    tableView.headerView(forSection: indexPath.section)?.layer.zPosition = -1
                 })
             }
             
             tableView.beginUpdates()
             
-            tableView.reloadRowsAtIndexPaths(originalTable!.updateIndexPaths, withRowAnimation: reloadTableViewRowAnimation)
-            tableView.insertRowsAtIndexPaths(originalTable!.insertIndexPaths, withRowAnimation: insertTableViewRowAnimation)
-            tableView.deleteRowsAtIndexPaths(originalTable!.deleteIndexPaths, withRowAnimation: deleteTableViewRowAnimation)
+            tableView.reloadRows(at: originalTable!.updateIndexPaths, with: reloadTableViewRowAnimation)
+            tableView.insertRows(at: originalTable!.insertIndexPaths, with: insertTableViewRowAnimation)
+            tableView.deleteRows(at: originalTable!.deleteIndexPaths, with: deleteTableViewRowAnimation)
             
             tableView.endUpdates()
             
@@ -93,15 +93,15 @@ public class StaticTableViewController: UITableViewController {
     }
     
     // MARK: UITableViewDataSource
-    override public func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override open func numberOfSections(in tableView: UITableView) -> Int {
         if originalTable == nil {
-            return super.numberOfSectionsInTableView(tableView)
+            return super.numberOfSections(in: tableView)
         } else {
             return originalTable!.sections.filter { $0.rows?.count != 0 }.count
         }
     }
     
-    override public func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if originalTable == nil {
             return super.tableView(tableView, numberOfRowsInSection: section)
         } else {
@@ -109,42 +109,42 @@ public class StaticTableViewController: UITableViewController {
         }
     }
     
-    override public func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if originalTable == nil {
-            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, cellForRowAt: indexPath)
         } else {
             let row = originalTable?.vissibleOriginalRowWithIndexPath(indexPath)
             return row!.cell!
         }
     }
     
-    override public func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if originalTable == nil {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
+            return super.tableView(tableView, heightForRowAt: indexPath)
         } else {
             let row = originalTable!.vissibleOriginalRowWithIndexPath(indexPath)
             
-            if row.height != CGFloat.max {
+            if row.height != CGFloat.greatestFiniteMagnitude {
                 return row.height
             } else {
-                return super.tableView(tableView, heightForRowAtIndexPath: row.originalIndexPath!)
+                return super.tableView(tableView, heightForRowAt: row.originalIndexPath!)
             }
         }
     }
     
-    override public func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    override open func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         let height = super.tableView(tableView, heightForHeaderInSection: section)
         
         return headerFooterHeightForSection(section, height: height)
     }
     
-    override public func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+    override open func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         let height = super.tableView(tableView, heightForFooterInSection: section)
         
         return headerFooterHeightForSection(section, height: height)
     }
     
-    override public func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
             return nil
         } else {
@@ -152,7 +152,7 @@ public class StaticTableViewController: UITableViewController {
         }
     }
     
-    override public func tableView(tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+    override open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
         if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
             return nil
         } else {
@@ -160,7 +160,7 @@ public class StaticTableViewController: UITableViewController {
         }
     }
     
-    func headerFooterHeightForSection(section: Int, height: CGFloat) -> CGFloat {
+    func headerFooterHeightForSection(_ section: Int, height: CGFloat) -> CGFloat {
         let section = originalTable?.sections[section]
         if section?.numberOfVissibleRows() == 0 {
             return 0

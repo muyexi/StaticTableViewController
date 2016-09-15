@@ -8,8 +8,8 @@ class OriginalSection {
         return (rows?.filter { !$0.hidden }.count)!
     }
     
-    func vissibleRowIndexWithTableViewCell(cell: UITableViewCell) -> Int {
-        return rows!.flatMap { $0.cell }.filter { !$0.hidden }.indexOf(cell)!
+    func vissibleRowIndexWithTableViewCell(_ cell: UITableViewCell) -> Int {
+        return rows!.flatMap { $0.cell }.filter { !$0.isHidden }.index(of: cell)!
     }
     
 }
