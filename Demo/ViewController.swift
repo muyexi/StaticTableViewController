@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  Demo
-//
-//  Created by muyexi on 8/31/16.
-//  Copyright © 2016 muyexi. All rights reserved.
-//
-
 import UIKit
 import StaticTableViewController
 
