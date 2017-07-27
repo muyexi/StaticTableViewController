@@ -11,15 +11,6 @@ open class StaticTableViewController: UITableViewController {
     
     var originalTable: OriginalTable?
     
-    override init(style: UITableViewStyle) {
-        super.init(style: style)
-        
-    }
-    
-    required public init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
     override open func viewDidLoad() {
         super.viewDidLoad()
         
@@ -97,7 +88,7 @@ open class StaticTableViewController: UITableViewController {
         if originalTable == nil {
             return super.numberOfSections(in: tableView)
         } else {
-            return originalTable!.sections.filter { $0.rows?.count != 0 }.count
+            return originalTable!.sections.filter { $0.rows.count != 0 }.count
         }
     }
     
@@ -114,7 +105,7 @@ open class StaticTableViewController: UITableViewController {
             return super.tableView(tableView, cellForRowAt: indexPath)
         } else {
             let row = originalTable?.vissibleOriginalRowWithIndexPath(indexPath)
-            return row!.cell!
+            return row!.cell
         }
     }
     
@@ -127,7 +118,7 @@ open class StaticTableViewController: UITableViewController {
             if row.height != CGFloat.greatestFiniteMagnitude {
                 return row.height
             } else {
-                return super.tableView(tableView, heightForRowAt: row.originalIndexPath!)
+                return super.tableView(tableView, heightForRowAt: row.originalIndexPath)
             }
         }
     }

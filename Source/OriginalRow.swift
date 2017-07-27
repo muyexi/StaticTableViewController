@@ -6,9 +6,7 @@ enum BatchOperation {
 
 class OriginalRow {
     
-    convenience init(cell: UITableViewCell, originalIndexPath: IndexPath){
-        self.init()
-        
+    init(cell: UITableViewCell, originalIndexPath: IndexPath){
         self.cell = cell
         self.originalIndexPath = originalIndexPath
     }
@@ -34,9 +32,9 @@ class OriginalRow {
     
     var batchOperation: BatchOperation = .none
     
-    var cell: UITableViewCell?
+    var cell: UITableViewCell
     
-    var originalIndexPath: IndexPath?
+    var originalIndexPath: IndexPath
     
     var height: CGFloat = CGFloat.greatestFiniteMagnitude
     
