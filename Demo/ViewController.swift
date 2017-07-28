@@ -18,27 +18,27 @@ class ViewController: StaticTableViewController {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                cells([showAllCell, hideMeCell1, hideMeCell2], hidden: false)
+                set(cells: showAllCell, hideMeCell1, hideMeCell2, hidden: false)
             default:
                 break
             }
         } else if indexPath.section == 1 {
             switch indexPath.row {
             case 0:
-                cells([hideMeCell1], hidden: true)
+                set(cells: hideMeCell1, hidden: true)
             default:
                 break
             }
         } else if indexPath.section == 2 {
             switch indexPath.row {
             case 0:
-                cells([hideMeCell2], hidden: true)
+                set(cells: hideMeCell2, hidden: true)
             default:
                 break
             }
         }
         
-        reloadDataAnimated(true)
+        reloadData(animated: true)
     }
 
 }

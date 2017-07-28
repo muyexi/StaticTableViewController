@@ -17,44 +17,32 @@ open class StaticTableViewController: UITableViewController {
         originalTable = OriginalTable(tableView: tableView)
     }
     
-    open func updateCell(_ cell: UITableViewCell) {
-        let row = originalTable!.originalRowWithTableViewCell(cell)
-        row.update()
-    }
-    
-    open func updateCells(_ cells: [UITableViewCell]) {
+    open func update(cells: UITableViewCell...) {
         cells.forEach { cell in
-            updateCell(cell)
+            let row = originalTable!.originalRowWithTableViewCell(cell)
+            row.update()
         }
     }
     
-    open func cell(_ cell: UITableViewCell, hidden: Bool) {
-        let row = originalTable!.originalRowWithTableViewCell(cell)
-        row.hidden = hidden
-    }
-    
-    open func cells(_ cells: [UITableViewCell], hidden: Bool) {
-        cells.forEach { c in
-            cell(c, hidden: hidden)
+    open func set(cells: UITableViewCell..., hidden: Bool) {
+        cells.forEach { cell in
+            let row = originalTable!.originalRowWithTableViewCell(cell)
+            row.hidden = hidden
         }
     }
     
-    open func cell(_ cell: UITableViewCell, height: CGFloat) {
-        let row = originalTable!.originalRowWithTableViewCell(cell)
-        row.height = height
-    }
-    
-    open func cells(_ cells: [UITableViewCell], height: CGFloat) {
-        cells.forEach { c in
-            cell(c, height: height)
+    open func set(cells: UITableViewCell..., height: CGFloat) {
+        cells.forEach { cell in
+            let row = originalTable!.originalRowWithTableViewCell(cell)
+            row.height = height
         }
     }
     
-    open func cellIsHidden(_ cell: UITableViewCell) -> Bool {
+    open func isHidden(cell: UITableViewCell) -> Bool {
         return originalTable!.originalRowWithTableViewCell(cell).hidden
     }
     
-    open func reloadDataAnimated(_ animated: Bool) {
+    open func reloadData(animated: Bool) {
         originalTable!.prepareUpdates()
         
         if animated {
