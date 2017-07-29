@@ -6,6 +6,8 @@ class ViewController: StaticTableViewController {
     @IBOutlet weak var showAllCell: UITableViewCell!
     @IBOutlet weak var hideMeCell1: UITableViewCell!
     @IBOutlet weak var hideMeCell2: UITableViewCell!
+    @IBOutlet weak var hideMeCell3: UITableViewCell!
+    @IBOutlet weak var hideMeCell4: UITableViewCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,24 +20,13 @@ class ViewController: StaticTableViewController {
         if indexPath.section == 0 {
             switch indexPath.row {
             case 0:
-                set(cells: showAllCell, hideMeCell1, hideMeCell2, hidden: false)
+                set(cells: showAllCell, hideMeCell1, hideMeCell2, hideMeCell3, hideMeCell4, hidden: false)
             default:
                 break
             }
-        } else if indexPath.section == 1 {
-            switch indexPath.row {
-            case 0:
-                set(cells: hideMeCell1, hidden: true)
-            default:
-                break
-            }
-        } else if indexPath.section == 2 {
-            switch indexPath.row {
-            case 0:
-                set(cells: hideMeCell2, hidden: true)
-            default:
-                break
-            }
+        } else if indexPath.section >= 1 {
+            let cell = tableView.cellForRow(at: indexPath)
+            set(cells: cell!, hidden: true)
         }
         
         reloadData(animated: true)

@@ -1,8 +1,7 @@
 import UIKit
 
-open class StaticTableViewController: UITableViewController {
+open class StaticTableViewController: UITableViewController, OriginalTableConfig {
     
-    open var hideSectionsWithHiddenRows = false
     open var animateSectionHeaders = false
     
     open var insertTableViewRowAnimation: UITableViewRowAnimation = .fade
@@ -14,7 +13,7 @@ open class StaticTableViewController: UITableViewController {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        originalTable = OriginalTable(tableView: tableView)
+        originalTable = OriginalTable(tableView: tableView, config: self)
     }
     
     open func update(cells: UITableViewCell...) {
@@ -43,32 +42,7 @@ open class StaticTableViewController: UITableViewController {
     }
     
     open func reloadData(animated: Bool) {
-        originalTable!.prepareUpdates()
-        
-        if animated {
-            if animateSectionHeaders {
-                originalTable?.deleteIndexPaths.forEach({ indexPath in
-                    let cell = tableView.cellForRow(at: indexPath)
-                    cell?.layer.zPosition = -2
-                    
-                    tableView.headerView(forSection: indexPath.section)?.layer.zPosition = -1
-                })
-            }
-            
-            tableView.beginUpdates()
-            
-            tableView.reloadRows(at: originalTable!.updateIndexPaths, with: reloadTableViewRowAnimation)
-            tableView.insertRows(at: originalTable!.insertIndexPaths, with: insertTableViewRowAnimation)
-            tableView.deleteRows(at: originalTable!.deleteIndexPaths, with: deleteTableViewRowAnimation)
-            
-            tableView.endUpdates()
-            
-            if !animateSectionHeaders {
-                tableView.reloadData()
-            }
-        } else {
-            tableView.reloadData()
-        }
+        originalTable!.reloadRows(animated: animated)
     }
     
     // MARK: UITableViewDataSource

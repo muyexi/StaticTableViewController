@@ -1,5 +1,13 @@
 import UIKit
 
+protocol OriginalTableConfig {
+    var insertTableViewRowAnimation: UITableViewRowAnimation { get set }
+    var deleteTableViewRowAnimation: UITableViewRowAnimation { get set }
+    var reloadTableViewRowAnimation: UITableViewRowAnimation { get set }
+
+    var animateSectionHeaders: Bool  { get set }
+}
+
 class OriginalTable {
 
     var sections: [OriginalSection]
@@ -11,8 +19,10 @@ class OriginalTable {
     var deleteIndexPaths: [IndexPath]
     
     var updateIndexPaths: [IndexPath]
+    
+    var config: OriginalTableConfig
 
-    init(tableView: UITableView) {
+    init(tableView: UITableView, config: OriginalTableConfig) {
         sections = Array(repeating: OriginalSection(), count: tableView.numberOfSections)
         
         var totalNumberOfRows: Int = 0
@@ -38,6 +48,7 @@ class OriginalTable {
         updateIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
         
         self.tableView = tableView
+        self.config = config
     }
     
     func originalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
@@ -85,27 +96,48 @@ class OriginalTable {
         deleteIndexPaths.removeAll()
         updateIndexPaths.removeAll()
         
-        let allRows = sections.flatMap { $0.rows }
-        
-        insertIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.insert
-        }.map {
-            indexPathForInsertingOriginalRow($0)
-        }
-        deleteIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.delete
-        }.map {
-            indexPathForDeletingOriginalRow($0)
-        }
-        updateIndexPaths = allRows.filter {
-            $0.batchOperation == BatchOperation.update
-        }.map {
-            indexPathForInsertingOriginalRow($0)
-        }
-        
-        allRows.forEach { row in
+        sections.flatMap { $0.rows }.forEach { (row) in
+            let indexPath = indexPathForInsertingOriginalRow(row)
+            
+            if row.batchOperation == .delete {
+                deleteIndexPaths.append(indexPath)
+            } else if row.batchOperation == .insert {
+                insertIndexPaths.append(indexPath)
+            } else if row.batchOperation == .update {
+                updateIndexPaths.append(indexPath)
+            }
+            
             row.hiddenReal = row.hiddenPlanned
             row.batchOperation = BatchOperation.none
+        }
+    }
+    
+    func reloadRows(animated: Bool) {
+        prepareUpdates()
+        
+        if animated {
+            if config.animateSectionHeaders {
+                deleteIndexPaths.forEach({ indexPath in
+                    let cell = tableView.cellForRow(at: indexPath)
+                    cell?.layer.zPosition = -2
+                    
+                    tableView.headerView(forSection: indexPath.section)?.layer.zPosition = -1
+                })
+            }
+            
+            tableView.beginUpdates()
+            
+            tableView.reloadRows(at: updateIndexPaths, with: config.reloadTableViewRowAnimation)
+            tableView.insertRows(at: insertIndexPaths, with: config.insertTableViewRowAnimation)
+            tableView.deleteRows(at: deleteIndexPaths, with: config.deleteTableViewRowAnimation)
+            
+            tableView.endUpdates()
+            
+            if !config.animateSectionHeaders {
+                tableView.reloadData()
+            }
+        } else {
+            tableView.reloadData()
         }
     }
     
