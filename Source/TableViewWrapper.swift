@@ -1,16 +1,16 @@
 import UIKit
 
-protocol OriginalTableConfig {
-    var insertTableViewRowAnimation: UITableViewRowAnimation { get set }
-    var deleteTableViewRowAnimation: UITableViewRowAnimation { get set }
-    var reloadTableViewRowAnimation: UITableViewRowAnimation { get set }
+protocol TableViewConfig {
+    var insertAnimation: UITableViewRowAnimation { get set }
+    var deleteAnimation: UITableViewRowAnimation { get set }
+    var reloadAnimation: UITableViewRowAnimation { get set }
 
     var animateSectionHeaders: Bool  { get set }
 }
 
-class OriginalTable {
+class TableViewWrapper {
 
-    var sections: [OriginalSection]
+    var sections: [TableSection]
     
     var tableView: UITableView
     
@@ -18,16 +18,16 @@ class OriginalTable {
     
     var deleteIndexPaths: [IndexPath]
     
-    var updateIndexPaths: [IndexPath]
+    var reloadIndexPaths: [IndexPath]
     
-    var config: OriginalTableConfig
+    var config: TableViewConfig
 
-    init(tableView: UITableView, config: OriginalTableConfig) {
-        sections = Array(repeating: OriginalSection(), count: tableView.numberOfSections)
+    init(tableView: UITableView, config: TableViewConfig) {
+        sections = Array(repeating: TableSection(), count: tableView.numberOfSections)
         
         var totalNumberOfRows: Int = 0
         for i in 0..<tableView.numberOfSections {
-            let section = OriginalSection()
+            let section = TableSection()
             let numberOfRows = tableView.numberOfRows(inSection: i)
             
             totalNumberOfRows += numberOfRows
@@ -36,7 +36,7 @@ class OriginalTable {
                 let indexPath = IndexPath(row: ii, section: i)
                 let cell = tableView.dataSource!.tableView(tableView, cellForRowAt: indexPath)
                 
-                let row = OriginalRow(cell: cell, originalIndexPath: indexPath)
+                let row = TableRow(cell: cell, indexPath: indexPath)
                 section.rows.append(row)
             }
             
@@ -45,35 +45,28 @@ class OriginalTable {
         
         insertIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
         deleteIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
-        updateIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
+        reloadIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
         
         self.tableView = tableView
         self.config = config
     }
     
-    func originalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
-        let section = sections[indexPath.section]
-        let row = section.rows[indexPath.row]
-        
-        return row
-    }
-    
-    func vissibleOriginalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
+    func vissibleRow(with indexPath: IndexPath) -> TableRow {
         let section = sections[indexPath.section]
         let visibleRows = section.rows.filter { !$0.hiding }
         
         return visibleRows[indexPath.row]
     }
 
-    func originalRowWithTableViewCell(_ cell: UITableViewCell) -> OriginalRow {
+    func row(with cell: UITableViewCell) -> TableRow {
         let allRows = sections.flatMap { $0.rows }
         
         return allRows.filter { $0.cell === cell }.first!
     }
     
-    func indexPathForInsertingOriginalRow(_ originalRow: OriginalRow) -> IndexPath {
-        let indexSection = originalRow.originalIndexPath.section
-        var indexRow = originalRow.originalIndexPath.row
+    func insert(row: TableRow) -> IndexPath {
+        let indexSection = row.indexPath.section
+        var indexRow = row.indexPath.row
         
         let section = sections[indexSection]
         indexRow = section.rows[0..<indexRow].filter { !$0.hiding }.count
@@ -81,9 +74,9 @@ class OriginalTable {
         return IndexPath(row: indexRow, section: indexSection)
     }
     
-    func indexPathForDeletingOriginalRow(_ originalRow: OriginalRow) -> IndexPath {
-        let indexSection = originalRow.originalIndexPath.section
-        var indexRow = originalRow.originalIndexPath.row
+    func delete(row: TableRow) -> IndexPath {
+        let indexSection = row.indexPath.section
+        var indexRow = row.indexPath.row
         
         let section = sections[indexSection]
         indexRow = section.rows[0..<indexRow].filter { !$0.hidden }.count
@@ -94,20 +87,20 @@ class OriginalTable {
     func prepareUpdates() {
         insertIndexPaths.removeAll()
         deleteIndexPaths.removeAll()
-        updateIndexPaths.removeAll()
+        reloadIndexPaths.removeAll()
         
         let allRows = sections.flatMap { $0.rows }
         
         allRows.forEach { (row) in
             if row.batchOperation == .delete {
-                let indexPath = indexPathForDeletingOriginalRow(row)
+                let indexPath = delete(row: row)
                 deleteIndexPaths.append(indexPath)
             } else if row.batchOperation == .insert {
-                let indexPath = indexPathForInsertingOriginalRow(row)
+                let indexPath = insert(row: row)
                 insertIndexPaths.append(indexPath)
             } else if row.batchOperation == .update {
-                let indexPath = indexPathForInsertingOriginalRow(row)
-                updateIndexPaths.append(indexPath)
+                let indexPath = insert(row: row)
+                reloadIndexPaths.append(indexPath)
             }
         }
         
@@ -132,9 +125,9 @@ class OriginalTable {
             
             tableView.beginUpdates()
             
-            tableView.reloadRows(at: updateIndexPaths, with: config.reloadTableViewRowAnimation)
-            tableView.insertRows(at: insertIndexPaths, with: config.insertTableViewRowAnimation)
-            tableView.deleteRows(at: deleteIndexPaths, with: config.deleteTableViewRowAnimation)
+            tableView.reloadRows(at: reloadIndexPaths, with: config.reloadAnimation)
+            tableView.insertRows(at: insertIndexPaths, with: config.insertAnimation)
+            tableView.deleteRows(at: deleteIndexPaths, with: config.deleteAnimation)
             
             tableView.endUpdates()
             

@@ -4,11 +4,11 @@ enum BatchOperation {
     case none, insert, delete, update
 }
 
-class OriginalRow {
+class TableRow {
     
-    init(cell: UITableViewCell, originalIndexPath: IndexPath){
+    init(cell: UITableViewCell, indexPath: IndexPath){
         self.cell = cell
-        self.originalIndexPath = originalIndexPath
+        self.indexPath = indexPath
     }
     
     var hidden: Bool = false
@@ -27,7 +27,7 @@ class OriginalRow {
     
     var cell: UITableViewCell
     
-    var originalIndexPath: IndexPath
+    var indexPath: IndexPath
     
     var height: CGFloat = CGFloat.greatestFiniteMagnitude
     

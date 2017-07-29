@@ -1,8 +1,8 @@
 import UIKit
 
-class OriginalSection {
+class TableSection {
     
-    var rows: [OriginalRow] = []
+    var rows: [TableRow] = []
     
     func numberOfVissibleRows() -> Int {
         return rows.filter { !$0.hiding }.count
