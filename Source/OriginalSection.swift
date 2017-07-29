@@ -5,7 +5,7 @@ class OriginalSection {
     var rows: [OriginalRow] = []
     
     func numberOfVissibleRows() -> Int {
-        return rows.filter { !$0.hidden }.count
+        return rows.filter { !$0.hiddenPlanned }.count
     }
     
 }

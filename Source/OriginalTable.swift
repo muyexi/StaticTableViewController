@@ -60,7 +60,7 @@ class OriginalTable {
     
     func vissibleOriginalRowWithIndexPath(_ indexPath: IndexPath) -> OriginalRow {
         let section = sections[indexPath.section]
-        let visibleRows = section.rows.filter { !$0.hidden }
+        let visibleRows = section.rows.filter { !$0.hiddenPlanned }
         
         return visibleRows[indexPath.row]
     }
@@ -76,7 +76,7 @@ class OriginalTable {
         var indexRow = originalRow.originalIndexPath.row
         
         let section = sections[indexSection]
-        indexRow = section.rows[0..<indexRow].filter { !$0.hidden }.count
+        indexRow = section.rows[0..<indexRow].filter { !$0.hiddenPlanned }.count
         
         return IndexPath(row: indexRow, section: indexSection)
     }

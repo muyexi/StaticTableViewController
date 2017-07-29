@@ -39,4 +39,20 @@ class DemoTests: XCTestCase {
         XCTAssert(number == 0)
     }
     
+    func testIsHidden() {
+        viewController.set(cells: viewController.hideMeCell3, hidden: true)
+        viewController.reloadData(animated: true)
+        
+        let isHidden = viewController.isHidden(cell: viewController.hideMeCell3)
+        XCTAssert(isHidden)
+    }
+    
+    func testChangeHeight() {
+        viewController.set(cells: viewController.hideMeCell3, height: 90)
+        viewController.reloadData(animated: true)
+        
+        let height = viewController.hideMeCell3.frame.size.height
+        XCTAssert(height == 90)
+    }
+    
 }
