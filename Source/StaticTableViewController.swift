@@ -26,7 +26,7 @@ open class StaticTableViewController: UITableViewController, OriginalTableConfig
     open func set(cells: UITableViewCell..., hidden: Bool) {
         cells.forEach { cell in
             let row = originalTable!.originalRowWithTableViewCell(cell)
-            row.set(hidden: hidden)
+            row.hiding = hidden
         }
     }
     
@@ -38,7 +38,7 @@ open class StaticTableViewController: UITableViewController, OriginalTableConfig
     }
     
     open func isHidden(cell: UITableViewCell) -> Bool {
-        return originalTable!.originalRowWithTableViewCell(cell).hiddenReal
+        return originalTable!.originalRowWithTableViewCell(cell).hidden
     }
     
     open func reloadData(animated: Bool) {

@@ -11,9 +11,17 @@ class OriginalRow {
         self.originalIndexPath = originalIndexPath
     }
     
-    var hiddenReal: Bool = false
+    var hidden: Bool = false
 
-    var hiddenPlanned: Bool = false
+    var hiding: Bool = false {
+        willSet {
+            if !hidden && newValue {
+                batchOperation = .delete
+            } else if hidden && !newValue {
+                batchOperation = .insert
+            }
+        }
+    }
     
     var batchOperation: BatchOperation = .none
     
@@ -24,19 +32,9 @@ class OriginalRow {
     var height: CGFloat = CGFloat.greatestFiniteMagnitude
     
     func update() {
-        if !hiddenPlanned && batchOperation == .none {
+        if !hiding && batchOperation == .none {
             batchOperation = .update
         }
-    }
-    
-    func set(hidden: Bool) {
-        if !hiddenReal && hidden {
-            batchOperation = .delete
-        } else if hiddenReal && !hidden {
-            batchOperation = .insert
-        }
-        
-        hiddenPlanned = hidden
     }
     
 }
