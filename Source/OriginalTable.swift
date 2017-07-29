@@ -96,17 +96,22 @@ class OriginalTable {
         deleteIndexPaths.removeAll()
         updateIndexPaths.removeAll()
         
-        sections.flatMap { $0.rows }.forEach { (row) in
-            let indexPath = indexPathForInsertingOriginalRow(row)
-            
+        let allRows = sections.flatMap { $0.rows }
+        
+        allRows.forEach { (row) in
             if row.batchOperation == .delete {
+                let indexPath = indexPathForDeletingOriginalRow(row)
                 deleteIndexPaths.append(indexPath)
             } else if row.batchOperation == .insert {
+                let indexPath = indexPathForInsertingOriginalRow(row)
                 insertIndexPaths.append(indexPath)
             } else if row.batchOperation == .update {
+                let indexPath = indexPathForInsertingOriginalRow(row)
                 updateIndexPaths.append(indexPath)
             }
-            
+        }
+        
+        allRows.forEach { (row) in
             row.hiddenReal = row.hiddenPlanned
             row.batchOperation = BatchOperation.none
         }

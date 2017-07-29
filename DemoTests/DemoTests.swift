@@ -10,7 +10,8 @@ class DemoTests: XCTestCase {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let id = String(describing: ViewController.self)
         
-        viewController = storyboard.instantiateViewController(withIdentifier: id) as? ViewController
+        viewController = storyboard.instantiateViewController(withIdentifier: id) as! ViewController
+        viewController.viewDidLoad()
     }
     
     override func tearDown() {
@@ -30,11 +31,11 @@ class DemoTests: XCTestCase {
         XCTAssert(number == 1)
     }
     
-    func testHideSection() {
-        viewController.set(cells: viewController.hideMeCell3, viewController.hideMeCell4, hidden: false)
+    func testHideSectionRows() {
+        viewController.set(cells: viewController.hideMeCell3, viewController.hideMeCell4, hidden: true)
         viewController.reloadData(animated: true)
         
-        let number = viewController.tableView.numberOfRows(inSection: 1)
+        let number = viewController.tableView.numberOfRows(inSection: 2)
         XCTAssert(number == 0)
     }
     
