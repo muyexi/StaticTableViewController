@@ -19,6 +19,14 @@ pod 'StaticTableViewController'
 github "muyexi/StaticTableViewController"
 ```
 
+### Swift Package Manager
+
+```
+dependencies: [
+    .Package(url: "https://github.com/muyexi/StaticTableViewController.git", majorVersion: 0)
+]
+```
+
 ## Usage
 
 Show/hide cells with outlet connections
