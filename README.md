@@ -9,19 +9,19 @@ Hide cells of static UITableViewController
 
 ### CocoaPods
 
-```
+```ruby
 pod 'StaticTableViewController'
 ```
 
 ### Carthage
 
-```
+```ogdl
 github "muyexi/StaticTableViewController"
 ```
 
 ### Swift Package Manager
 
-```
+```swift
 dependencies: [
     .Package(url: "https://github.com/muyexi/StaticTableViewController.git", majorVersion: 0)
 ]
@@ -31,7 +31,7 @@ dependencies: [
 
 Show/hide cells with outlet connections
 
-```
+```swift
 cell(outletStaticCell1, hidden: true)
 cells([outletStaticCell1, outletStaticCell2], hidden: true)
 
