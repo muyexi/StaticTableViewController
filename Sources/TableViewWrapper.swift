@@ -1,9 +1,9 @@
 import UIKit
 
 protocol TableViewConfig {
-    var insertAnimation: UITableViewRowAnimation { get set }
-    var deleteAnimation: UITableViewRowAnimation { get set }
-    var reloadAnimation: UITableViewRowAnimation { get set }
+    var insertAnimation: UITableView.RowAnimation { get set }
+    var deleteAnimation: UITableView.RowAnimation { get set }
+    var reloadAnimation: UITableView.RowAnimation { get set }
 
     var animateSectionHeaders: Bool  { get set }
 }

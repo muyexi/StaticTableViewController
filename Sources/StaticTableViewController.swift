@@ -4,9 +4,9 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     
     open var animateSectionHeaders = false
     
-    open var insertAnimation: UITableViewRowAnimation = .fade
-    open var deleteAnimation: UITableViewRowAnimation = .fade
-    open var reloadAnimation: UITableViewRowAnimation = .fade
+    open var insertAnimation: UITableView.RowAnimation = .fade
+    open var deleteAnimation: UITableView.RowAnimation = .fade
+    open var reloadAnimation: UITableView.RowAnimation = .fade
     
     var tableViewWrapper: TableViewWrapper?
     

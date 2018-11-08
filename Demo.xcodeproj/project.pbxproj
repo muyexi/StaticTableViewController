@@ -11,7 +11,6 @@
 		8D2797471D77E74C00BBAC45 /* StaticTableViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */; };
 		8D2797481D77E74C00BBAC45 /* StaticTableViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8D2797401D77E74B00BBAC45 /* StaticTableViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D654C311F2C2D56005019EF /* DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D654C301F2C2D56005019EF /* DemoTests.swift */; };
-		8D83AA391F2CCAF100294181 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D83AA341F2CCAF100294181 /* Info.plist */; };
 		8D83AA3B1F2CCAF100294181 /* StaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D83AA351F2CCAF100294181 /* StaticTableViewController.swift */; };
 		8D83AA3C1F2CCAF100294181 /* StaticTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D83AA351F2CCAF100294181 /* StaticTableViewController.swift */; };
 		8D83AA3D1F2CCAF100294181 /* TableRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D83AA361F2CCAF100294181 /* TableRow.swift */; };
@@ -271,7 +270,7 @@
 					};
 					8DB921351D76A0C2006961FE = {
 						CreatedOnToolsVersion = 7.3;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1010;
 					};
 				};
 			};
@@ -314,7 +313,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D83AA391F2CCAF100294181 /* Info.plist in Resources */,
 				8DB921731D76BF0F006961FE /* Main.storyboard in Resources */,
 				8DB921711D76BF0F006961FE /* Assets.xcassets in Resources */,
 				8DB921721D76BF0F006961FE /* LaunchScreen.storyboard in Resources */,
@@ -609,8 +607,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
 				PRODUCT_NAME = Demo;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -624,8 +621,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = im.muyexi.Demo;
 				PRODUCT_NAME = Demo;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
