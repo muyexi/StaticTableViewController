@@ -2,15 +2,17 @@ import XCTest
 @testable import Demo
 
 class DemoTests: XCTestCase {
-    var viewController: ViewController!
+    lazy var viewController: ViewController = {
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let id = String(describing: ViewController.self)
+        
+        let viewController = storyboard.instantiateViewController(withIdentifier: id) as! ViewController
+        return viewController
+    }()
     
     override func setUp() {
         super.setUp()
         
-        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-        let id = String(describing: ViewController.self)
-        
-        viewController = storyboard.instantiateViewController(withIdentifier: id) as! ViewController
         viewController.viewDidLoad()
     }
     
