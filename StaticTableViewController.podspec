@@ -7,6 +7,6 @@ Pod::Spec.new do |s|
   s.homepage     = 'https://github.com/muyexi/StaticTableViewController'
   s.author       = { 'muyexi' => 'muyexi@gmail.com' }
   s.source       = { :git => 'https://github.com/muyexi/StaticTableViewController.git', :tag => s.version }
-  s.source_files = 'Source/*.swift'
+  s.source_files = 'Sources/*.swift'
   s.swift_version = '4.2'
 end
