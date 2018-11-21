@@ -17,23 +17,21 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     }
     
     open func update(cells: UITableViewCell...) {
-        cells.forEach { cell in
-            let row = tableViewWrapper!.row(with: cell)
-            row.update()
-        }
+        update(cells: cells)
     }
     
     open func set(cells: UITableViewCell..., hidden: Bool) {
-        cells.forEach { cell in
-            let row = tableViewWrapper!.row(with: cell)
-            row.hiding = hidden
-        }
+        set(cells: cells, hidden: hidden)
     }
     
     open func set(cells: UITableViewCell..., height: CGFloat) {
+        set(cells: cells, height: height)
+    }
+    
+    open func update(cells: [UITableViewCell]) {
         cells.forEach { cell in
             let row = tableViewWrapper!.row(with: cell)
-            row.height = height
+            row.update()
         }
     }
     
