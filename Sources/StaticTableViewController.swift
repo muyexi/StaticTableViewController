@@ -37,6 +37,20 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
         }
     }
     
+    open func set(cells: [UITableViewCell], hidden: Bool) {
+        cells.forEach { (cell: UITableViewCell) in
+            let row = tableViewWrapper!.row(with: cell)
+            row.hiding = hidden
+        }
+    }
+    
+    open func set(cells: [UITableViewCell], height: CGFloat) {
+        cells.forEach { (cell: UITableViewCell) in
+            let row = tableViewWrapper!.row(with: cell)
+            row.height = height
+        }
+    }
+    
     open func isHidden(cell: UITableViewCell) -> Bool {
         return tableViewWrapper!.row(with: cell).hidden
     }
