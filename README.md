@@ -13,12 +13,6 @@ Dynamically hide / show cells of static UITableViewController, Swift Port of [St
 pod 'StaticTableViewController'
 ```
 
-### Carthage
-
-```ogdl
-github "muyexi/StaticTableViewController"
-```
-
 ### Swift Package Manager
 
 ```swift

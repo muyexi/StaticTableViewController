@@ -1,5 +1,5 @@
 PODS:
-  - StaticTableViewController (1.0.0)
+  - StaticTableViewController (1.0.1)
 
 DEPENDENCIES:
   - StaticTableViewController (from `./`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "./"
 
 SPEC CHECKSUMS:
-  StaticTableViewController: b98eda5169c69ee14ed10f0bf462b6001a89613a
+  StaticTableViewController: f3d7a26ac451684399cb12fb48c4e587ebd6297f
 
 PODFILE CHECKSUM: b87f909462710db4c678c5c56a4e6af55a5e5287
 
