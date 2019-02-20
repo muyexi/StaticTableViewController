@@ -79,24 +79,19 @@ class TableViewWrapper {
         deleteIndexPaths.removeAll()
         reloadIndexPaths.removeAll()
         
-        let allRows = sections.flatMap { $0.rows }
-        
-        allRows.forEach { (row) in
-            if row.batchOperation == .delete {
-                let indexPath = delete(row: row)
-                deleteIndexPaths.append(indexPath)
-            } else if row.batchOperation == .insert {
-                let indexPath = insert(row: row)
-                insertIndexPaths.append(indexPath)
-            } else if row.batchOperation == .update {
-                let indexPath = insert(row: row)
-                reloadIndexPaths.append(indexPath)
+        sections.flatMap { $0.rows }.forEach { row in
+            switch row.batchOperation {
+            case .delete:
+                deleteIndexPaths.append(delete(row: row))
+            case .insert:
+                insertIndexPaths.append(insert(row: row))
+            case .update:
+                insertIndexPaths.append(insert(row: row))
+            case .none:
+                break
             }
-        }
-        
-        allRows.forEach { (row) in
             row.hidden = row.hiding
-            row.batchOperation = BatchOperation.none
+            row.batchOperation = .none
         }
     }
     
@@ -108,12 +103,10 @@ class TableViewWrapper {
         
         if animated {
             if config.animateSectionHeaders {
-                deleteIndexPaths.forEach({ indexPath in
-                    let cell = tableView.cellForRow(at: indexPath)
-                    cell?.layer.zPosition = -2
-                    
+                deleteIndexPaths.forEach { indexPath in
+                    tableView.cellForRow(at: indexPath)?.layer.zPosition = -2
                     tableView.headerView(forSection: indexPath.section)?.layer.zPosition = -1
-                })
+                }
             }
             
             tableView.beginUpdates()
