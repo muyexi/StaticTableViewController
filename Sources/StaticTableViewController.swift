@@ -56,41 +56,40 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
     
     // MARK: UITableViewDataSource
     override open func numberOfSections(in tableView: UITableView) -> Int {
-        if tableViewWrapper == nil {
-            return super.numberOfSections(in: tableView)
+        if let wrapper = tableViewWrapper {
+            return wrapper.sections.filter { $0.rows.count != 0 }.count
         } else {
-            return tableViewWrapper!.sections.filter { $0.rows.count != 0 }.count
+            return super.numberOfSections(in: tableView)
         }
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, numberOfRowsInSection: section)
+        if let wrapper = tableViewWrapper {
+            return wrapper.sections[section].numberOfVisibleRows()
         } else {
-            return tableViewWrapper!.sections[section].numberOfVisibleRows()
+            return super.tableView(tableView, numberOfRowsInSection: section)
         }
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, cellForRowAt: indexPath)
+        if let wrapper = tableViewWrapper {
+            return wrapper.visibleRow(with: indexPath).cell
         } else {
-            let row = tableViewWrapper?.visibleRow(with: indexPath)
-            return row!.cell
+            return super.tableView(tableView, cellForRowAt: indexPath)
         }
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, heightForRowAt: indexPath)
-        } else {
-            let row = tableViewWrapper!.visibleRow(with: indexPath)
-            
+        if let wrapper = tableViewWrapper {
+            let row = wrapper.visibleRow(with: indexPath)
+
             if row.height != CGFloat.greatestFiniteMagnitude {
                 return row.height
             } else {
                 return super.tableView(tableView, heightForRowAt: row.indexPath)
             }
+        } else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
         }
     }
     
