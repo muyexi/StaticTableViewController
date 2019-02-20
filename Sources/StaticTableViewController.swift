@@ -13,7 +13,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        tableViewWrapper = TableViewWrapper(tableView: tableView, config: self)
+        tableViewWrapper = TableViewWrapper(tableView: tableView, configDelegate: self)
     }
     
     open func update(cells: UITableViewCell...) {

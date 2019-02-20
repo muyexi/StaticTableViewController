@@ -22,33 +22,23 @@ class TableViewWrapper {
     
     weak var configDelegate: TableViewConfigDelegate?
 
-    init(tableView: UITableView, config: TableViewConfigDelegate) {
-        sections = Array(repeating: TableSection(), count: tableView.numberOfSections)
-        
-        var totalNumberOfRows: Int = 0
-        for i in 0..<tableView.numberOfSections {
-            let section = TableSection()
-            let numberOfRows = tableView.numberOfRows(inSection: i)
-            
-            totalNumberOfRows += numberOfRows
-            
-            for ii in 0..<numberOfRows {
-                let indexPath = IndexPath(row: ii, section: i)
-                let cell = tableView.dataSource!.tableView(tableView, cellForRowAt: indexPath)
-                
-                let row = TableRow(cell: cell, indexPath: indexPath)
-                section.rows.append(row)
+    init(tableView: UITableView, configDelegate: TableViewConfigDelegate) {
+        sections = (0...tableView.numberOfSections).map { section in
+            let tableSection = TableSection()
+            tableSection.rows = (0...tableView.numberOfRows(inSection: section)).map { row in
+                let path = IndexPath(row: row, section: section)
+                return TableRow(cell: tableView.dataSource!.tableView(tableView, cellForRowAt: path), indexPath: path)
             }
-            
-            sections[i] = section
+            return tableSection
         }
-        
-        insertIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
-        deleteIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
-        reloadIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
+        let paths = sections.compactMap{_ in IndexPath()}
+
+        insertIndexPaths = paths
+        deleteIndexPaths = paths
+        reloadIndexPaths = paths
         
         self.tableView = tableView
-        self.configDelegate = config
+        self.configDelegate = configDelegate
     }
     
     func visibleRow(with indexPath: IndexPath) -> TableRow {
