@@ -51,7 +51,7 @@ class TableViewWrapper {
         self.config = config
     }
     
-    func vissibleRow(with indexPath: IndexPath) -> TableRow {
+    func visibleRow(with indexPath: IndexPath) -> TableRow {
         let section = sections[indexPath.section]
         let visibleRows = section.rows.filter { !$0.hiding }
         

@@ -70,7 +70,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
         if tableViewWrapper == nil {
             return super.tableView(tableView, numberOfRowsInSection: section)
         } else {
-            return tableViewWrapper!.sections[section].numberOfVissibleRows()
+            return tableViewWrapper!.sections[section].numberOfVisibleRows()
         }
     }
     
@@ -78,7 +78,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
         if tableViewWrapper == nil {
             return super.tableView(tableView, cellForRowAt: indexPath)
         } else {
-            let row = tableViewWrapper?.vissibleRow(with: indexPath)
+            let row = tableViewWrapper?.visibleRow(with: indexPath)
             return row!.cell
         }
     }
@@ -87,7 +87,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
         if tableViewWrapper == nil {
             return super.tableView(tableView, heightForRowAt: indexPath)
         } else {
-            let row = tableViewWrapper!.vissibleRow(with: indexPath)
+            let row = tableViewWrapper!.visibleRow(with: indexPath)
             
             if row.height != CGFloat.greatestFiniteMagnitude {
                 return row.height
@@ -127,7 +127,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     
     func headerFooterHeightForSection(_ section: Int, height: CGFloat) -> CGFloat {
         let section = tableViewWrapper?.sections[section]
-        if section?.numberOfVissibleRows() == 0 {
+        if section?.numberOfVisibleRows() == 0 {
             return 0
         } else {
             return height
