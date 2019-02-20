@@ -1,6 +1,6 @@
 import UIKit
 
-protocol TableViewConfig {
+protocol TableViewConfig: class {
     var insertAnimation: UITableView.RowAnimation { get set }
     var deleteAnimation: UITableView.RowAnimation { get set }
     var reloadAnimation: UITableView.RowAnimation { get set }
@@ -20,7 +20,7 @@ class TableViewWrapper {
     
     var reloadIndexPaths: [IndexPath]
     
-    var config: TableViewConfig
+    weak var config: TableViewConfig?
 
     init(tableView: UITableView, config: TableViewConfig) {
         sections = Array(repeating: TableSection(), count: tableView.numberOfSections)
@@ -111,6 +111,9 @@ class TableViewWrapper {
     }
     
     func reloadRows(animated: Bool) {
+        guard let config = config else {
+            return
+        }
         prepareUpdates()
         
         if animated {
