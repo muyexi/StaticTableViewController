@@ -1,6 +1,6 @@
 import UIKit
 
-open class StaticTableViewController: UITableViewController, TableViewConfig {
+open class StaticTableViewController: UITableViewController, TableViewConfigDelegate {
     
     open var animateSectionHeaders = false
     
