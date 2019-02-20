@@ -30,22 +30,19 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
     
     open func update(cells: [UITableViewCell]) {
         cells.forEach { cell in
-            let row = tableViewWrapper!.row(with: cell)
-            row.update()
+            tableViewWrapper?.row(with: cell).update()
         }
     }
     
     open func set(cells: [UITableViewCell], hidden: Bool) {
         cells.forEach { (cell: UITableViewCell) in
-            let row = tableViewWrapper!.row(with: cell)
-            row.hiding = hidden
+            tableViewWrapper?.row(with: cell).hiding = hidden
         }
     }
     
     open func set(cells: [UITableViewCell], height: CGFloat) {
         cells.forEach { (cell: UITableViewCell) in
-            let row = tableViewWrapper!.row(with: cell)
-            row.height = height
+            tableViewWrapper?.row(with: cell).height = height
         }
     }
     
@@ -108,9 +105,13 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
         
         return headerFooterHeightForSection(section, height: height)
     }
+
+    func isSectionEmpty(_ section: Int) -> Bool {
+        return tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0
+    }
     
     override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+        if isSectionEmpty(section) {
             return nil
         } else {
             return super.tableView(tableView, titleForHeaderInSection: section)
@@ -118,7 +119,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
     }
     
     override open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+        if isSectionEmpty(section) {
             return nil
         } else {
             return super.tableView(tableView, titleForFooterInSection: section)
