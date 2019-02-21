@@ -14,11 +14,11 @@ class TableViewWrapper {
     
     var tableView: UITableView
     
-    var insertIndexPaths: [IndexPath]
+    var insertIndexPaths: [IndexPath] = []
     
-    var deleteIndexPaths: [IndexPath]
+    var deleteIndexPaths: [IndexPath] = []
     
-    var reloadIndexPaths: [IndexPath]
+    var reloadIndexPaths: [IndexPath] = []
     
     weak var configDelegate: TableViewConfigDelegate?
 
@@ -31,11 +31,6 @@ class TableViewWrapper {
             }
             return tableSection
         }
-        let paths = sections.compactMap{_ in IndexPath()}
-
-        insertIndexPaths = paths
-        deleteIndexPaths = paths
-        reloadIndexPaths = paths
         
         self.tableView = tableView
         self.configDelegate = configDelegate
