@@ -89,6 +89,8 @@ class TableViewWrapper {
             }
         }
         
+        // `delete(row: TableRow)` use `hidden` to get correct `IndexPath`
+        // So set `hidden` after `deleteIndexPaths` is updated
         allRows.forEach { (row) in
             row.hidden = row.hiding
             row.batchOperation = .none
