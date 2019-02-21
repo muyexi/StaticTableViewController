@@ -1,0 +1,9 @@
+language: swift
+osx_image: xcode10.1
+
+before_install:
+- gem install xcpretty
+- pod install
+
+script:
+- xcodebuild clean test -workspace Demo.xcworkspace -scheme Demo -destination "platform=iOS Simulator,name=iPhone XR,OS=12.1" | xcpretty
