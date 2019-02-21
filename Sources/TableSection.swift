@@ -4,7 +4,7 @@ class TableSection {
     
     var rows: [TableRow] = []
     
-    func numberOfVissibleRows() -> Int {
+    func numberOfVisibleRows() -> Int {
         return rows.filter { !$0.hiding }.count
     }
     

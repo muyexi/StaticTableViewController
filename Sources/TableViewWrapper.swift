@@ -1,6 +1,6 @@
 import UIKit
 
-protocol TableViewConfig {
+protocol TableViewConfigDelegate: class {
     var insertAnimation: UITableView.RowAnimation { get set }
     var deleteAnimation: UITableView.RowAnimation { get set }
     var reloadAnimation: UITableView.RowAnimation { get set }
@@ -20,38 +20,28 @@ class TableViewWrapper {
     
     var reloadIndexPaths: [IndexPath]
     
-    var config: TableViewConfig
+    weak var configDelegate: TableViewConfigDelegate?
 
-    init(tableView: UITableView, config: TableViewConfig) {
-        sections = Array(repeating: TableSection(), count: tableView.numberOfSections)
-        
-        var totalNumberOfRows: Int = 0
-        for i in 0..<tableView.numberOfSections {
-            let section = TableSection()
-            let numberOfRows = tableView.numberOfRows(inSection: i)
-            
-            totalNumberOfRows += numberOfRows
-            
-            for ii in 0..<numberOfRows {
-                let indexPath = IndexPath(row: ii, section: i)
-                let cell = tableView.dataSource!.tableView(tableView, cellForRowAt: indexPath)
-                
-                let row = TableRow(cell: cell, indexPath: indexPath)
-                section.rows.append(row)
+    init(tableView: UITableView, configDelegate: TableViewConfigDelegate) {
+        sections = (0...tableView.numberOfSections).map { section in
+            let tableSection = TableSection()
+            tableSection.rows = (0...tableView.numberOfRows(inSection: section)).map { row in
+                let path = IndexPath(row: row, section: section)
+                return TableRow(cell: tableView.dataSource!.tableView(tableView, cellForRowAt: path), indexPath: path)
             }
-            
-            sections[i] = section
+            return tableSection
         }
-        
-        insertIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
-        deleteIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
-        reloadIndexPaths = Array(repeating: IndexPath(), count: totalNumberOfRows)
+        let paths = sections.compactMap{_ in IndexPath()}
+
+        insertIndexPaths = paths
+        deleteIndexPaths = paths
+        reloadIndexPaths = paths
         
         self.tableView = tableView
-        self.config = config
+        self.configDelegate = configDelegate
     }
     
-    func vissibleRow(with indexPath: IndexPath) -> TableRow {
+    func visibleRow(with indexPath: IndexPath) -> TableRow {
         let section = sections[indexPath.section]
         let visibleRows = section.rows.filter { !$0.hiding }
         
@@ -89,38 +79,34 @@ class TableViewWrapper {
         deleteIndexPaths.removeAll()
         reloadIndexPaths.removeAll()
         
-        let allRows = sections.flatMap { $0.rows }
-        
-        allRows.forEach { (row) in
-            if row.batchOperation == .delete {
-                let indexPath = delete(row: row)
-                deleteIndexPaths.append(indexPath)
-            } else if row.batchOperation == .insert {
-                let indexPath = insert(row: row)
-                insertIndexPaths.append(indexPath)
-            } else if row.batchOperation == .update {
-                let indexPath = insert(row: row)
-                reloadIndexPaths.append(indexPath)
+        sections.flatMap { $0.rows }.forEach { row in
+            switch row.batchOperation {
+            case .delete:
+                deleteIndexPaths.append(delete(row: row))
+            case .insert:
+                insertIndexPaths.append(insert(row: row))
+            case .update:
+                insertIndexPaths.append(insert(row: row))
+            case .none:
+                break
             }
-        }
-        
-        allRows.forEach { (row) in
             row.hidden = row.hiding
-            row.batchOperation = BatchOperation.none
+            row.batchOperation = .none
         }
     }
     
     func reloadRows(animated: Bool) {
+        guard let config = configDelegate else {
+            return
+        }
         prepareUpdates()
         
         if animated {
             if config.animateSectionHeaders {
-                deleteIndexPaths.forEach({ indexPath in
-                    let cell = tableView.cellForRow(at: indexPath)
-                    cell?.layer.zPosition = -2
-                    
+                deleteIndexPaths.forEach { indexPath in
+                    tableView.cellForRow(at: indexPath)?.layer.zPosition = -2
                     tableView.headerView(forSection: indexPath.section)?.layer.zPosition = -1
-                })
+                }
             }
             
             tableView.beginUpdates()

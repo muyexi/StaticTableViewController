@@ -1,6 +1,6 @@
 import UIKit
 
-open class StaticTableViewController: UITableViewController, TableViewConfig {
+open class StaticTableViewController: UITableViewController, TableViewConfigDelegate {
     
     open var animateSectionHeaders = false
     
@@ -13,7 +13,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     override open func viewDidLoad() {
         super.viewDidLoad()
         
-        tableViewWrapper = TableViewWrapper(tableView: tableView, config: self)
+        tableViewWrapper = TableViewWrapper(tableView: tableView, configDelegate: self)
     }
     
     open func update(cells: UITableViewCell...) {
@@ -30,22 +30,19 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     
     open func update(cells: [UITableViewCell]) {
         cells.forEach { cell in
-            let row = tableViewWrapper!.row(with: cell)
-            row.update()
+            tableViewWrapper?.row(with: cell).update()
         }
     }
     
     open func set(cells: [UITableViewCell], hidden: Bool) {
         cells.forEach { (cell: UITableViewCell) in
-            let row = tableViewWrapper!.row(with: cell)
-            row.hiding = hidden
+            tableViewWrapper?.row(with: cell).hiding = hidden
         }
     }
     
     open func set(cells: [UITableViewCell], height: CGFloat) {
         cells.forEach { (cell: UITableViewCell) in
-            let row = tableViewWrapper!.row(with: cell)
-            row.height = height
+            tableViewWrapper?.row(with: cell).height = height
         }
     }
     
@@ -59,41 +56,40 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     
     // MARK: UITableViewDataSource
     override open func numberOfSections(in tableView: UITableView) -> Int {
-        if tableViewWrapper == nil {
-            return super.numberOfSections(in: tableView)
+        if let wrapper = tableViewWrapper {
+            return wrapper.sections.filter { $0.rows.count != 0 }.count
         } else {
-            return tableViewWrapper!.sections.filter { $0.rows.count != 0 }.count
+            return super.numberOfSections(in: tableView)
         }
     }
     
     override open func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, numberOfRowsInSection: section)
+        if let wrapper = tableViewWrapper {
+            return wrapper.sections[section].numberOfVisibleRows()
         } else {
-            return tableViewWrapper!.sections[section].numberOfVissibleRows()
+            return super.tableView(tableView, numberOfRowsInSection: section)
         }
     }
     
     override open func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, cellForRowAt: indexPath)
+        if let wrapper = tableViewWrapper {
+            return wrapper.visibleRow(with: indexPath).cell
         } else {
-            let row = tableViewWrapper?.vissibleRow(with: indexPath)
-            return row!.cell
+            return super.tableView(tableView, cellForRowAt: indexPath)
         }
     }
     
     override open func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableViewWrapper == nil {
-            return super.tableView(tableView, heightForRowAt: indexPath)
-        } else {
-            let row = tableViewWrapper!.vissibleRow(with: indexPath)
-            
+        if let wrapper = tableViewWrapper {
+            let row = wrapper.visibleRow(with: indexPath)
+
             if row.height != CGFloat.greatestFiniteMagnitude {
                 return row.height
             } else {
                 return super.tableView(tableView, heightForRowAt: row.indexPath)
             }
+        } else {
+            return super.tableView(tableView, heightForRowAt: indexPath)
         }
     }
     
@@ -108,9 +104,13 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
         
         return headerFooterHeightForSection(section, height: height)
     }
+
+    func isSectionEmpty(_ section: Int) -> Bool {
+        return tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0
+    }
     
     override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+        if isSectionEmpty(section) {
             return nil
         } else {
             return super.tableView(tableView, titleForHeaderInSection: section)
@@ -118,7 +118,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     }
     
     override open func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        if tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0 {
+        if isSectionEmpty(section) {
             return nil
         } else {
             return super.tableView(tableView, titleForFooterInSection: section)
@@ -127,7 +127,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfig {
     
     func headerFooterHeightForSection(_ section: Int, height: CGFloat) -> CGFloat {
         let section = tableViewWrapper?.sections[section]
-        if section?.numberOfVissibleRows() == 0 {
+        if section?.numberOfVisibleRows() == 0 {
             return 0
         } else {
             return height
