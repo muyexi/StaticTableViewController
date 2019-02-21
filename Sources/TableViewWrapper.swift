@@ -86,7 +86,7 @@ class TableViewWrapper {
             case .insert:
                 insertIndexPaths.append(insert(row: row))
             case .update:
-                insertIndexPaths.append(insert(row: row))
+                reloadIndexPaths.append(insert(row: row))
             case .none:
                 break
             }
