@@ -16,6 +16,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
         tableViewWrapper = TableViewWrapper(tableView: tableView, configDelegate: self)
     }
     
+    // MARK: - API
     open func update(cells: UITableViewCell...) {
         update(cells: cells)
     }
@@ -105,10 +106,6 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
         return headerFooterHeightForSection(section, height: height)
     }
 
-    func isSectionEmpty(_ section: Int) -> Bool {
-        return tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0
-    }
-    
     override open func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if isSectionEmpty(section) {
             return nil
@@ -125,6 +122,7 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
         }
     }
     
+    // MARK: - Private
     func headerFooterHeightForSection(_ section: Int, height: CGFloat) -> CGFloat {
         let section = tableViewWrapper?.sections[section]
         if section?.numberOfVisibleRows() == 0 {
@@ -133,5 +131,8 @@ open class StaticTableViewController: UITableViewController, TableViewConfigDele
             return height
         }
     }
-
+    
+    func isSectionEmpty(_ section: Int) -> Bool {
+        return tableView.dataSource?.tableView(tableView, numberOfRowsInSection: section) == 0
+    }
 }
