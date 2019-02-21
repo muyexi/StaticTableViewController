@@ -23,9 +23,9 @@ class TableViewWrapper {
     weak var configDelegate: TableViewConfigDelegate?
 
     init(tableView: UITableView, configDelegate: TableViewConfigDelegate) {
-        sections = (0...tableView.numberOfSections).map { section in
+        sections = (0..<tableView.numberOfSections).map { section in
             let tableSection = TableSection()
-            tableSection.rows = (0...tableView.numberOfRows(inSection: section)).map { row in
+            tableSection.rows = (0..<tableView.numberOfRows(inSection: section)).map { row in
                 let path = IndexPath(row: row, section: section)
                 return TableRow(cell: tableView.dataSource!.tableView(tableView, cellForRowAt: path), indexPath: path)
             }
