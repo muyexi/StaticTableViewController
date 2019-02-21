@@ -79,7 +79,9 @@ class TableViewWrapper {
         deleteIndexPaths.removeAll()
         reloadIndexPaths.removeAll()
         
-        sections.flatMap { $0.rows }.forEach { row in
+        let allRows = sections.flatMap { $0.rows }
+        
+        allRows.forEach { row in
             switch row.batchOperation {
             case .delete:
                 deleteIndexPaths.append(delete(row: row))
@@ -90,6 +92,9 @@ class TableViewWrapper {
             case .none:
                 break
             }
+        }
+        
+        allRows.forEach { (row) in
             row.hidden = row.hiding
             row.batchOperation = .none
         }
